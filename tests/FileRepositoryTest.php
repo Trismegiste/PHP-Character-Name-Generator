@@ -5,19 +5,16 @@
  */
 
 use PHPUnit\Framework\TestCase;
-use Trismegiste\NameGenerator\Repository;
+use Trismegiste\NameGenerator\FileRepository;
 
-/**
- * Description of RepositoryTest
- */
-class RepositoryTest extends TestCase
+class FileRepositoryTest extends TestCase
 {
 
     protected $sut;
 
     protected function setUp(): void
     {
-        $this->sut = new Repository(__DIR__ . '/database');
+        $this->sut = new FileRepository(__DIR__ . '/database');
     }
 
     public function testSurnameLang()
@@ -42,6 +39,18 @@ class RepositoryTest extends TestCase
     public function testGivenNameListFor()
     {
         $this->assertCount(4, $this->sut->getGivenNameListFor('female', 'trilogy'));
+    }
+
+    public function testBadGender()
+    {
+        $this->expectException(OutOfBoundsException::class);
+        $this->sut->getGivenNameListFor('robot', 'trilogy');
+    }
+
+    public function testBadLang()
+    {
+        $this->expectException(OutOfBoundsException::class);
+        $this->sut->getSurnameListFor('startrek');
     }
 
 }

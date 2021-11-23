@@ -1,5 +1,9 @@
 <?php
 require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Symfony\Component\HttpFoundation\Request;
+use Trismegiste\NameGenerator\FileRepository;
+use Trismegiste\NameGenerator\RandomizerDecorator;
 ?><!DOCTYPE html>
 <html>
     <head>
@@ -14,7 +18,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
     </head>
     <body>
         <?php
-        $request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
+        $request = Request::createFromGlobals();
 
         $numberNames = $request->request->get("theNamesDisplayed", 50);
         $givenName = $request->request->get("theGivenName");
@@ -23,12 +27,12 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
         $totallyRandomName = $request->request->get("theTotallyRandomName", 0);
 
         if ($totallyRandomName == 1) {
-            $givenName = 100;
-            $surname = 100;
+            $givenName = 'random';
+            $surname = 'random';
         }
 
         // generating
-        $repository = new \Trismegiste\NameGenerator\Repository(__DIR__ . '/../database');
+        $repository = new RandomizerDecorator(new FileRepository(__DIR__ . '/../database'));
         $surnameList = $repository->getSurnameListFor($surname);
         $givenList = $repository->getGivenNameListFor($gender, $givenName);
 
@@ -37,8 +41,6 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
             $nameGenerated[] = $givenList[random_int(0, count($givenList) - 1)] .
                 ' ' . $surnameList[random_int(0, count($surnameList) - 1)];
         }
-
-        // $nameGenerated = getName($numberNames, $givenName, $surname, $gender);
 
         $nameGeneratedCol1 = array();
         $nameGeneratedCol2 = array();
@@ -63,27 +65,27 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
             Last Name: <?php echo ucfirst($surname); ?>
         </span>
         <span id="nameBlock">
-            <?php
-            if ($nameCount >= 20) {
-                foreach ($nameGeneratedCol1 as $name) {
-                    echo $name . '<br/><br/>';
-                }
-            } else {
-                foreach ($nameGenerated as $name) {
-                    echo $name . '<br/><br/>';
-                }
-            }
-            ?>
+<?php
+if ($nameCount >= 20) {
+    foreach ($nameGeneratedCol1 as $name) {
+        echo $name . '<br/><br/>';
+    }
+} else {
+    foreach ($nameGenerated as $name) {
+        echo $name . '<br/><br/>';
+    }
+}
+?>
 
         </span>
         <span id="nameBlock2">
-            <?php
-            if ($nameCount >= 20) {
-                foreach ($nameGeneratedCol2 as $name) {
-                    echo $name . '<br/><br/>';
-                }
-            }
-            ?>
+<?php
+if ($nameCount >= 20) {
+    foreach ($nameGeneratedCol2 as $name) {
+        echo $name . '<br/><br/>';
+    }
+}
+?>
         </span>
         <script>
             let imgData = "images/title.png";

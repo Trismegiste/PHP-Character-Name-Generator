@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
-$repository = new \Trismegiste\NameGenerator\Repository(__DIR__ . '/database');
+$repository = new \Trismegiste\NameGenerator\FileRepository(__DIR__ . '/database');
 ?><!DOCTYPE html>
 <html>
     <head>
@@ -30,7 +30,7 @@ $repository = new \Trismegiste\NameGenerator\Repository(__DIR__ . '/database');
                     <div id="hideNames">
                         <span class="formIputDescriptionRandomName">Given Name:</span>	
                         <select id="givenName" name="theGivenName" class="randomNameBox">
-                            <option value="100"selected>Random</option>	
+                            <option value="random"selected>Random</option>	
                             <?php
                             $given = $repository->getGivenNameLanguage();
 
@@ -44,7 +44,7 @@ $repository = new \Trismegiste\NameGenerator\Repository(__DIR__ . '/database');
                         <br/>
                         <span class="formIputDescriptionRandomName">Surname:</span>	
                         <select id="surname" name="theSurname" class="randomNameBox">	
-                            <option value="100">Random</option>	
+                            <option value="random">Random</option>	
                             <?php
                             $surname = $repository->getSurnameLanguage();
 
