@@ -87,11 +87,6 @@
                 <br/>
                 <br/>
             </form>
-            <script>
-                $("#generate_randomName").click(function () {
-                    $("#nameGenForm").attr('action', "randomName/nameGenerator.php");
-                });
-            </script>
         </section>
     </body>
 </html>

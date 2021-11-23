@@ -8,7 +8,7 @@
         <meta name="keywords" content=",PHP,HTML5,CSS,JavaScript">
         <meta name="author" content="Mark Tasaka 2021">
         <link rel="icon" href="../../../images/favicon/icon.png" type="image/png" sizes="16x16"> 
-        <link rel="stylesheet" type="text/css" href="css/randomNameGen.css">
+        <link rel="stylesheet" type="text/css" href="randomName/css/randomNameGen.css">
     </head>
     <body>
         <?php
@@ -58,7 +58,7 @@
             ?>
         </span>
         <script>
-            let imgData = "images/title.png";
+            let imgData = "randomName/images/title.png";
             $("#title").attr("src", imgData);
         </script>
     </body>
