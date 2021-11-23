@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
+
+$repository = new \App\NameGenerator\Repository(__DIR__ . '/database');
 ?><!DOCTYPE html>
 <html>
     <head>
@@ -30,11 +32,9 @@ require_once __DIR__ . '/vendor/autoload.php';
                         <select id="givenName" name="theGivenName" class="randomNameBox">
                             <option value="100"selected>Random</option>	
                             <?php
-                            $finder = new \Symfony\Component\Finder\Finder();
-                            $given = $finder->files()->in('./database/female')->name('*.yml');
+                            $given = $repository->getGivenNameList();
 
-                            foreach ($given as $fileInfo) {
-                                $lang = $fileInfo->getBasename('.yml');
+                            foreach ($given as $lang) {
                                 $label = ucfirst($lang);
                                 echo "<option value=\"$lang\">$label</option>";
                             }
@@ -46,11 +46,9 @@ require_once __DIR__ . '/vendor/autoload.php';
                         <select id="surname" name="theSurname" class="randomNameBox">	
                             <option value="100">Random</option>	
                             <?php
-                            $finder = new \Symfony\Component\Finder\Finder();
-                            $surname = $finder->files()->in('./database/surname')->name('*.yml');
+                            $surname = $repository->getSurnameList();
 
-                            foreach ($surname as $fileInfo) {
-                                $lang = $fileInfo->getBasename('.yml');
+                            foreach ($given as $lang) {
                                 $label = ucfirst($lang);
                                 echo "<option value=\"$lang\">$label</option>";
                             }
