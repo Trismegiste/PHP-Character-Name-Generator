@@ -28,7 +28,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
         }
 
         // generating
-        $repository = new \App\NameGenerator\Repository(__DIR__ . '/../database');
+        $repository = new \Trismegiste\NameGenerator\Repository(__DIR__ . '/../database');
         $surnameList = $repository->getSurnameListFor($surname);
         $givenList = $repository->getGivenNameListFor($gender, $givenName);
 

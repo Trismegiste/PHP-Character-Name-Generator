@@ -4,7 +4,7 @@
  * Name Generator
  */
 
-namespace App\NameGenerator;
+namespace Trismegiste\NameGenerator;
 
 /**
  * A service for name generating

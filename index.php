@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
-$repository = new \App\NameGenerator\Repository(__DIR__ . '/database');
+$repository = new \Trismegiste\NameGenerator\Repository(__DIR__ . '/database');
 ?><!DOCTYPE html>
 <html>
     <head>
