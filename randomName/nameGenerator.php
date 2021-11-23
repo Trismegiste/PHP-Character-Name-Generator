@@ -28,13 +28,14 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
         }
 
         // generating
-        $surnameList = Symfony\Component\Yaml\Yaml::parseFile("./../database/surname/$surname.yml");
-        $givenList = Symfony\Component\Yaml\Yaml::parseFile("./../database/$gender/$givenName.yml");
+        $repository = new \App\NameGenerator\Repository(__DIR__ . '/../database');
+        $surnameList = $repository->getSurnameListFor($surname);
+        $givenList = $repository->getGivenNameListFor($gender, $givenName);
 
         $nameGenerated = [];
         for ($k = 0; $k < $numberNames; $k++) {
             $nameGenerated[] = $givenList[random_int(0, count($givenList) - 1)] .
-                    ' ' . $surnameList[random_int(0, count($surnameList) - 1)];
+                ' ' . $surnameList[random_int(0, count($surnameList) - 1)];
         }
 
         // $nameGenerated = getName($numberNames, $givenName, $surname, $gender);

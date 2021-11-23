@@ -16,8 +16,7 @@ class Repository
     private $givenNameLanguage = null;
     private $surnameLanguage = null;
     private $cacheSurname = [];
-    private $cacheFemaleName = [];
-    private $cacheMaleName = [];
+    private $cacheGivenName = ['female' => [], 'male' => []];
 
     public function __construct(string $dbFolder)
     {
@@ -54,25 +53,29 @@ class Repository
         return $this->givenNameLanguage;
     }
 
-    public function getMaleGivenNameListFor(string $lang): array
+    public function getGivenNameListFor(string $gender, string $lang): array
     {
-        if (!array_key_exists($lang, $this->cacheMaleName)) {
+        if (!in_array($gender, array_keys($this->cacheGivenName))) {
+            throw new \OutOfBoundsException("$gender is not a valid gender");
+        }
+
+        if (!array_key_exists($lang, $this->cacheGivenName[$gender])) {
             $langListing = $this->getGivenNameLanguage();
-            // this seems a little overkill but it prevents some clowns to inject some infamous path in the form
+            // this seems a little overkill but it prevents some clowns to inject some infamous path into the form
             if (!array_search($lang, $langListing)) {
                 throw new \OutOfBoundsException("$lang is not a valid language for a given name");
             }
-            $this->cacheMaleName[$lang] = \Symfony\Component\Yaml\Yaml::parseFile("{$this->folder}/male/$lang.yml");
+            $this->cacheGivenName[$gender][$lang] = \Symfony\Component\Yaml\Yaml::parseFile("{$this->folder}/$gender/$lang.yml");
         }
 
-        return $this->cacheMaleName[$lang];
+        return $this->cacheGivenName[$gender][$lang];
     }
 
     public function getSurnameListFor(string $lang): array
     {
         if (!array_key_exists($lang, $this->cacheSurname)) {
             $langListing = $this->getSurnameLanguage();
-            // this seems a little overkill but it prevents some clowns to inject some infamous path in the form
+            // this seems a little overkill but it prevents some clowns to inject some infamous path into the form
             if (!array_search($lang, $langListing)) {
                 throw new \OutOfBoundsException("$lang is not a valid language for Surname");
             }
