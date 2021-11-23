@@ -62,7 +62,7 @@ class Repository
         if (!array_key_exists($lang, $this->cacheGivenName[$gender])) {
             $langListing = $this->getGivenNameLanguage();
             // this seems a little overkill but it prevents some clowns to inject some infamous path into the form
-            if (!array_search($lang, $langListing)) {
+            if (false === array_search($lang, $langListing)) {
                 throw new \OutOfBoundsException("$lang is not a valid language for a given name");
             }
             $this->cacheGivenName[$gender][$lang] = \Symfony\Component\Yaml\Yaml::parseFile("{$this->folder}/$gender/$lang.yml");
@@ -76,7 +76,7 @@ class Repository
         if (!array_key_exists($lang, $this->cacheSurname)) {
             $langListing = $this->getSurnameLanguage();
             // this seems a little overkill but it prevents some clowns to inject some infamous path into the form
-            if (!array_search($lang, $langListing)) {
+            if (false === array_search($lang, $langListing)) {
                 throw new \OutOfBoundsException("$lang is not a valid language for Surname");
             }
             $this->cacheSurname[$lang] = \Symfony\Component\Yaml\Yaml::parseFile("{$this->folder}/surname/$lang.yml");

@@ -22,7 +22,26 @@ class RepositoryTest extends TestCase
 
     public function testSurnameLang()
     {
-        $this->assertCount(1, $this->sut->getSurnameLanguage());
+        $l = $this->sut->getSurnameLanguage();
+        $this->assertCount(1, $l);
+        $this->assertEquals(['starwars'], $l);
+    }
+
+    public function testGivenNameLang()
+    {
+        $l = $this->sut->getGivenNameLanguage();
+        $this->assertCount(1, $l);
+        $this->assertEquals(['trilogy'], $l);
+    }
+
+    public function testSurnameListFor()
+    {
+        $this->assertCount(3, $this->sut->getSurnameListFor('starwars'));
+    }
+
+    public function testGivenNameListFor()
+    {
+        $this->assertCount(4, $this->sut->getGivenNameListFor('female', 'trilogy'));
     }
 
 }
