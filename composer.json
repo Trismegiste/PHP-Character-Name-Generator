@@ -12,7 +12,6 @@
             "App\\NameGenerator\\": "src/"
         }
     },
-    "name": "trismegiste/namegenerator-website",
     "type": "project",
     "license": "MIT",
     "description": "A website that generates names for RPG"

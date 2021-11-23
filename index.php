@@ -32,7 +32,7 @@ $repository = new \App\NameGenerator\Repository(__DIR__ . '/database');
                         <select id="givenName" name="theGivenName" class="randomNameBox">
                             <option value="100"selected>Random</option>	
                             <?php
-                            $given = $repository->getGivenNameList();
+                            $given = $repository->getGivenNameLanguage();
 
                             foreach ($given as $lang) {
                                 $label = ucfirst($lang);
@@ -46,7 +46,7 @@ $repository = new \App\NameGenerator\Repository(__DIR__ . '/database');
                         <select id="surname" name="theSurname" class="randomNameBox">	
                             <option value="100">Random</option>	
                             <?php
-                            $surname = $repository->getSurnameList();
+                            $surname = $repository->getSurnameLanguage();
 
                             foreach ($given as $lang) {
                                 $label = ucfirst($lang);
