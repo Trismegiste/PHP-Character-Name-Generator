@@ -33,11 +33,13 @@ use Trismegiste\NameGenerator\RandomizerDecorator;
 
         // generating
         $repository = new RandomizerDecorator(new FileRepository(__DIR__ . '/../database'));
-        $surnameList = $repository->getSurnameListFor($surname);
-        $givenList = $repository->getGivenNameListFor($gender, $givenName);
 
         $nameGenerated = [];
         for ($k = 0; $k < $numberNames; $k++) {
+            // listings are cached, therefore, it's ok to call the same language again and again
+            $surnameList = $repository->getSurnameListFor($surname);
+            $givenList = $repository->getGivenNameListFor($gender, $givenName);
+
             $nameGenerated[] = $givenList[random_int(0, count($givenList) - 1)] .
                 ' ' . $surnameList[random_int(0, count($surnameList) - 1)];
         }
@@ -65,27 +67,27 @@ use Trismegiste\NameGenerator\RandomizerDecorator;
             Last Name: <?php echo ucfirst($surname); ?>
         </span>
         <span id="nameBlock">
-<?php
-if ($nameCount >= 20) {
-    foreach ($nameGeneratedCol1 as $name) {
-        echo $name . '<br/><br/>';
-    }
-} else {
-    foreach ($nameGenerated as $name) {
-        echo $name . '<br/><br/>';
-    }
-}
-?>
+            <?php
+            if ($nameCount >= 20) {
+                foreach ($nameGeneratedCol1 as $name) {
+                    echo $name . '<br/><br/>';
+                }
+            } else {
+                foreach ($nameGenerated as $name) {
+                    echo $name . '<br/><br/>';
+                }
+            }
+            ?>
 
         </span>
         <span id="nameBlock2">
-<?php
-if ($nameCount >= 20) {
-    foreach ($nameGeneratedCol2 as $name) {
-        echo $name . '<br/><br/>';
-    }
-}
-?>
+            <?php
+            if ($nameCount >= 20) {
+                foreach ($nameGeneratedCol2 as $name) {
+                    echo $name . '<br/><br/>';
+                }
+            }
+            ?>
         </span>
         <script>
             let imgData = "images/title.png";
