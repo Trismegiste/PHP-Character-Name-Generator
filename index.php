@@ -61,8 +61,8 @@ require_once __DIR__ . '/vendor/autoload.php';
                     </div>
                     <span class="formIputDescriptionRandomName">Gender:</span>	
                     <select id="gender" name="theGender" class="randomNameBox">	
-                        <option value="0">Male</option>
-                        <option value="1" selected>Female</option>
+                        <option value="male">Male</option>
+                        <option value="female" selected>Female</option>
                     </select>
                     <br/>
                     <br/>

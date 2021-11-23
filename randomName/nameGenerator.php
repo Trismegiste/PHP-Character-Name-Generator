@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+?><!DOCTYPE html>
 <html>
     <head>
         <title>Name Generator</title>
@@ -12,38 +14,30 @@
     </head>
     <body>
         <?php
-        include 'php/nameSelect.php';
+        $request = Symfony\Component\HttpFoundation\Request::createFromGlobals();
 
-        if (isset($_POST["theNamesDisplayed"])) {
-            $numberNames = $_POST["theNamesDisplayed"];
-        }
-
-
-        if (isset($_POST["theGivenName"])) {
-            $givenName = $_POST["theGivenName"];
-        }
-
-        if (isset($_POST["theSurname"])) {
-            $surname = $_POST["theSurname"];
-        }
-
-        if (isset($_POST["theGender"])) {
-            $gender = $_POST["theGender"];
-        }
-
-        $totallyRandomName = 0;
-
-        if (isset($_POST["theTotallyRandomName"])) {
-            $totallyRandomName = $_POST["theTotallyRandomName"];
-        }
+        $numberNames = $request->request->get("theNamesDisplayed", 50);
+        $givenName = $request->request->get("theGivenName");
+        $surname = $request->request->get("theSurname");
+        $gender = $request->request->get("theGender");
+        $totallyRandomName = $request->request->get("theTotallyRandomName", 0);
 
         if ($totallyRandomName == 1) {
             $givenName = 100;
             $surname = 100;
         }
 
-        $nameGenerated = array();
-        $nameGenerated = getName($numberNames, $givenName, $surname, $gender);
+        // generating
+        $surnameList = Symfony\Component\Yaml\Yaml::parseFile("./../database/surname/$surname.yml");
+        $givenList = Symfony\Component\Yaml\Yaml::parseFile("./../database/$gender/$givenName.yml");
+
+        $nameGenerated = [];
+        for ($k = 0; $k < $numberNames; $k++) {
+            $nameGenerated[] = $givenList[random_int(0, count($givenList) - 1)] .
+                    ' ' . $surnameList[random_int(0, count($surnameList) - 1)];
+        }
+
+        // $nameGenerated = getName($numberNames, $givenName, $surname, $gender);
 
         $nameGeneratedCol1 = array();
         $nameGeneratedCol2 = array();
@@ -55,8 +49,6 @@
             $nameGeneratedCol2 = array_slice($nameGenerated, ($nameCount / 2));
         }
 
-        $nameDescript = getNameDescript($givenName, $surname, $gender);
-
         $lastName = array(
         );
 
@@ -66,9 +58,8 @@
         <img id="title"/>
 
         <span id="nameInformation">
-            <?php
-            echo $nameDescript;
-            ?>
+            Given Name: <?php echo ucfirst($givenName); ?> (<?php echo ucfirst($gender); ?>)       
+            Last Name: <?php echo ucfirst($surname); ?>
         </span>
         <span id="nameBlock">
             <?php
