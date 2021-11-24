@@ -1,5 +1,5 @@
 # Huge overhaul to bring this code to 21st century standards
-I've extracted a library fully tested 100% code coverage at [https://github.com/Trismegiste/rpg-name-generator].
+I've extracted a library fully tested 100% code coverage at [trismegiste/rpg-name-generator](https://github.com/Trismegiste/rpg-name-generator).
 
 # PHP-Character-Name-Generator
 The RPG character name generator is designed to create list of random names used for table-top role-playing games.  The generator is designed with PHP and utilizes Post-Methods send user input to generate data.
