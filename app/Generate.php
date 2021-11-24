@@ -4,15 +4,17 @@
  * Name Generator
  */
 
-namespace Trismegiste\NameGenerator;
+namespace App;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Trismegiste\NameGenerator\FileRepository;
+use Trismegiste\NameGenerator\RandomizerDecorator;
 
 /**
  * Controller
  */
-class App
+class Generate
 {
 
     protected $repository;
@@ -50,8 +52,9 @@ class App
             $surnameList = $this->repository->getSurnameListFor($surname);
             $givenList = $this->repository->getGivenNameListFor($gender, $givenName);
 
-            $nameGenerated[] = $givenList[random_int(0, count($givenList) - 1)] .
-                ' ' . $surnameList[random_int(0, count($surnameList) - 1)];
+            $nameGenerated[] = $givenList[random_int(0, count($givenList) - 1)]
+                    . ' ' .
+                    $surnameList[random_int(0, count($surnameList) - 1)];
         }
 
         $html = $this->render('template/result.php', [

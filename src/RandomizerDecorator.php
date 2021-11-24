@@ -7,6 +7,7 @@
 namespace Trismegiste\NameGenerator;
 
 /**
+ * Service for randomizing the name generator repository
  * Design Pattern : Decorator
  */
 class RandomizerDecorator implements Repository
@@ -47,6 +48,20 @@ class RandomizerDecorator implements Repository
         }
 
         return $this->decorated->getSurnameListFor($lang);
+    }
+
+    public function getRandomGivenNameFor(string $gender, string $lang): string
+    {
+        $listing = $this->getGivenNameListFor($gender, $lang);
+
+        return $listing[random_int(0, count($listing) - 1)];
+    }
+
+    public function getRandomSurnameFor(string $lang): string
+    {
+        $listing = $this->getSurnameListFor($lang);
+
+        return $listing[random_int(0, count($listing) - 1)];
     }
 
 }

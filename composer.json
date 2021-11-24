@@ -9,11 +9,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Trismegiste\\NameGenerator\\": "src/"
+            "Trismegiste\\NameGenerator\\": "src/",
+            "App\\": "app/"
         }
     },
-     "autoload-dev": {
-        "psr-4": { "Tests\\Trismegiste\\NameGenerator\\": "tests/" }
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Trismegiste\\NameGenerator\\": "tests/"
+        }
     },
     "type": "project",
     "license": "MIT",

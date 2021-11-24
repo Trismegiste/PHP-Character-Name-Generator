@@ -2,12 +2,12 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use App\Generate;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Trismegiste\NameGenerator\App;
 
 $request = Request::createFromGlobals();
-$app = new App();
+$app = new Generate();
 
 if ($request->getMethod() === 'GET') {
     $response = $app->form();
